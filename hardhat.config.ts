@@ -1,6 +1,8 @@
+import "dotenv/config";
 import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import "@nomiclabs/hardhat-web3";
+import "@openzeppelin/hardhat-upgrades";
 
 // task action function receives the Hardhat Runtime Environment as second argument
 task("accounts", "Prints accounts", async (_, { web3 }) => {
@@ -23,6 +25,19 @@ task("isConnect", "Prints web3 connect status", async (_, { web3 }) => {
 
 const config: HardhatUserConfig = {
   solidity: "0.8.9",
+  networks: {
+    rinkeby: {
+      url: `https://rinkeby.infura.io/v3/${process.env.INFURA_API_KEY}`,
+      accounts: [process.env.ADMIN!],
+      chainId: 4,
+      
+      // verify: {
+      //   etherscan: {
+      //     apiKey: process.env.ETHERSCAN_API_KEY,
+      //   },
+      // },
+    },
+  }
 };
 
 export default config;
